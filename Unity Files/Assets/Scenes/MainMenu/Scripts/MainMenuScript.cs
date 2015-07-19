@@ -22,7 +22,11 @@ public class MainMenuScript : MonoBehaviour {
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), backgroundTexture);
 
 		//displays the "Play Game" button
-		GUI.Button (new Rect (playButtonX, playButtonY, playButtonWidth, playButtonHeight), playButtonText);
+		if (GUI.Button (new Rect (playButtonX, playButtonY, playButtonWidth, playButtonHeight), playButtonText)) {
+		
+		  Application.LoadLevel (1);
+		
+		}
 	}
 
 }
