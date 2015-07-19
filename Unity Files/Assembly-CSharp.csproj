@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{0F9647C7-1DB3-6F91-50CC-D8F23E60866F}</ProjectGuid>
+	<ProjectGuid>{145DCA46-D402-33AB-B1F8-B57DE97C6992}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,6 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Army\Scripts\ArmyManager.cs" />
+     <Compile Include="Assets\Army\Scripts\CombatSoldier.cs" />
+     <Compile Include="Assets\Army\Scripts\Soldiers.cs" />
+     <Compile Include="Assets\Army\Scripts\WorldGUIManager.cs" />
      <Compile Include="Assets\Scenes\MainMenu\Scripts\MainMenuScript.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
@@ -57,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{58EF853C-D20E-0884-63F5-7D98763D4CD9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{F35AF75E-3A2D-3898-D28A-15A8045D5C45}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
