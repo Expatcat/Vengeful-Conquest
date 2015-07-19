@@ -1,10 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/WorldGUIManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Scenes/MainMenu/Scripts/MainMenuScript.cs" Line="1" Column="19" />
-      <File FileName="Assets/Army/Scripts/Soldiers.cs" Line="4" Column="1" />
-      <File FileName="Assets/WorldGUIManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scenes/MainMenu/Scripts/MainMenuScript.cs" Line="27" Column="31" />
+      <File FileName="Assets/Scripts/Data Scripts/CastleDataScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Data Scripts/ArmyDataScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WorldGUIManager.cs" Line="250" Column="25" />
+      <File FileName="Assets/Scripts/Soldiers.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Castles.cs" Line="1" Column="1" />
+      <File FileName="Assets/PlayerController.cs" Line="36" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

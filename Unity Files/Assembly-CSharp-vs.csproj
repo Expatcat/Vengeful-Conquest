@@ -46,11 +46,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Army\Scripts\ArmyManager.cs" />
-     <Compile Include="Assets\Army\Scripts\CombatSoldier.cs" />
-     <Compile Include="Assets\Army\Scripts\Soldiers.cs" />
-     <Compile Include="Assets\Army\Scripts\WorldGUIManager.cs" />
+     <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\Scenes\MainMenu\Scripts\MainMenuScript.cs" />
+     <Compile Include="Assets\Scripts\Castles.cs" />
+     <Compile Include="Assets\Scripts\CombatSoldier.cs" />
+     <Compile Include="Assets\Scripts\Data Scripts\ArmyDataScript.cs" />
+     <Compile Include="Assets\Scripts\Data Scripts\CastleDataScript.cs" />
+     <Compile Include="Assets\Scripts\Data Scripts\DataScript.cs" />
+     <Compile Include="Assets\Scripts\SceneChangeTest.cs" />
+     <Compile Include="Assets\Scripts\Soldiers.cs" />
+     <Compile Include="Assets\Scripts\WorldGUIManager.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
