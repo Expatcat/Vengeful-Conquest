@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CameraFollow.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\Scenes\MainMenu\Scripts\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\Castles.cs" />
@@ -53,6 +54,8 @@
      <Compile Include="Assets\Scripts\Data Scripts\ArmyDataScript.cs" />
      <Compile Include="Assets\Scripts\Data Scripts\CastleDataScript.cs" />
      <Compile Include="Assets\Scripts\Data Scripts\DataScript.cs" />
+     <Compile Include="Assets\Scripts\Data Scripts\PlayerDataScript.cs" />
+     <Compile Include="Assets\Scripts\PlayerData.cs" />
      <Compile Include="Assets\Scripts\SceneChangeTest.cs" />
      <Compile Include="Assets\Scripts\Soldiers.cs" />
      <Compile Include="Assets\Scripts\WorldGUIManager.cs" />

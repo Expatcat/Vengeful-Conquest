@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		playerAnimator = this.GetComponent<Animator>();
+	  playerAnimator = GetComponent<Animator>();
 	
 	}
 	
@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour {
 	  }
 	  
 	  else {
-	  
 	    playerAnimator.SetInteger("Direction", 0);
 	  }
 	
