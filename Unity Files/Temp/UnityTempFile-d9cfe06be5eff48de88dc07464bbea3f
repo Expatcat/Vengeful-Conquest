@@ -59,6 +59,7 @@
 -define:UNITY_TEAM_LICENSE
 -define:UNITY_PRO_LICENSE
 -define:CROSS_PLATFORM_INPUT
+'Assets/CameraFollow.cs'
 'Assets/PlayerController.cs'
 'Assets/Scenes/MainMenu/Scripts/MainMenuScript.cs'
 'Assets/Scripts/Castles.cs'
@@ -66,6 +67,7 @@
 'Assets/Scripts/Data Scripts/ArmyDataScript.cs'
 'Assets/Scripts/Data Scripts/CastleDataScript.cs'
 'Assets/Scripts/Data Scripts/DataScript.cs'
+'Assets/Scripts/Data Scripts/PlayerDataScript.cs'
 'Assets/Scripts/SceneChangeTest.cs'
 'Assets/Scripts/Soldiers.cs'
 'Assets/Scripts/WorldGUIManager.cs'
