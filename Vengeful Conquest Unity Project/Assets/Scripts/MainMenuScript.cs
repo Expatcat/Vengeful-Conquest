@@ -10,7 +10,7 @@ public class MainMenuScript : MonoBehaviour {
 	void OnGUI() {
 
 		//button texts
-		string playButtonText = "Play Game"; //play button text
+		string playButtonText = "New Game"; //play button text
 
 		//play button values
 		float playButtonX = Screen.width * .25f; //x value of upper left corner

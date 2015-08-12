@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ArmyDataScript : MonoBehaviour {
@@ -24,21 +24,24 @@ public class ArmyDataScript : MonoBehaviour {
 	
 	}
 	
+	/* gets the number of active soldiers */
 	public int getSoldierCount() {
 	
-	  int soldierCount = 0;
+	  int soldierCount = 0; //starts at 0
 	
+	  //loops through all soldiers
 	  for (int i = 0; i < partySoldierCount; i++) {
 	  
+	    //checks if soldiers are active
 	    if (partySoldiers[i].GetComponent<SoldierDataScript>().active == true) {
 	     
+	      //increments number of active soldiers
 	      soldierCount++;
-	      
-	      Debug.Log ("ADD");
 	      
 	    }
 	  }
 	  
+	  //returns active soldiers
 	  return soldierCount;
 	  
 	}

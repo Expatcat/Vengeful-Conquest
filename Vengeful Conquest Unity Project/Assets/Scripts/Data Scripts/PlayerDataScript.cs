@@ -30,24 +30,27 @@ public class PlayerDataScript : MonoBehaviour {
 	
 	}
 	
-	public GameObject getPlayerObject() {
+	/* Returns the actual player game object */
+	public GameObject getPlayerObject() { 
 	
 	  return this.player;
 	
 	}
 	
+	/* Returns the transform position of the player */
 	public Vector2 getPlayerPosition() {
-	
 	  return this.transform.position;
 	  
 	}
 	
+	/* Stop showing the player */
 	void hidePlayer() {
 	
       player.GetComponent<Renderer>().enabled = false;
 	
 	}
 	
+	/* Show the player */
 	void showPlayer() {
 	
 	  player.GetComponent<Renderer>().enabled = true;
