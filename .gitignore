@@ -1,4 +1,7 @@
 ./Unity Files/Temp/
 *.meta
+<<<<<<< HEAD
 
 Test Builds/Test1.app/Contents/Data/Managed/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx
+=======
+>>>>>>> origin/master
