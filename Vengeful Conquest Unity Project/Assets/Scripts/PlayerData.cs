@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerData : MonoBehaviour {
 
-	public int health;
+	public string playerName;
+  public int health;
 	public float experience;
 	public int level;
 

@@ -55,7 +55,10 @@
      <Compile Include="Assets\Scripts\Data Scripts\PlayerDataScript.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyMove.cs" />
+     <Compile Include="Assets\Scripts\EnterCastle.cs" />
      <Compile Include="Assets\Scripts\GUI Scripts\ArmyManagerGUI.cs" />
+     <Compile Include="Assets\Scripts\GUI Scripts\CastleManagerGUI.cs" />
+     <Compile Include="Assets\Scripts\GUI Scripts\PlayerCreationGUI.cs" />
      <Compile Include="Assets\Scripts\MainMenuScript.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerData.cs" />

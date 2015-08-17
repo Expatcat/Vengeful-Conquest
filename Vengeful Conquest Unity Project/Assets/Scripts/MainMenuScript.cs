@@ -5,6 +5,14 @@ public class MainMenuScript : MonoBehaviour {
 
 	//textures
 	public Texture backgroundTexture; //main menu background texture
+  
+  private DataScript data;
+
+  void Start() {
+  
+    data = GameObject.Find ("Data").GetComponent<DataScript>();
+  
+  }
 
 	//Main Menu GUI
 	void OnGUI() {
@@ -21,16 +29,16 @@ public class MainMenuScript : MonoBehaviour {
 		//Displays the background with "Vengeful Conquest" text on it.
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), backgroundTexture);
 
-		//displays the "Play Game" button
+		//displays the "New Game" button
 		if (GUI.Button (new Rect (playButtonX, playButtonY, playButtonWidth, playButtonHeight), playButtonText)) {
 		
-		  Application.LoadLevel (1);
+		  Application.LoadLevel (data.openingSceneNumber);
 		
 		}
 		
-		if (GUI.Button (new Rect (playButtonX, playButtonY + 60, playButtonWidth, playButtonHeight), "Battlefield Demo")) {
+		if (GUI.Button (new Rect (playButtonX, playButtonY + 60, playButtonWidth, playButtonHeight), "Resume Game")) {
 			
-			Application.LoadLevel (2);
+			Application.LoadLevel (data.worldSceneNumber);
 			
 		}
 	}

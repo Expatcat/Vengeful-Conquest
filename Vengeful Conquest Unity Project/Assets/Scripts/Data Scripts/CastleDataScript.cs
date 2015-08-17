@@ -9,6 +9,12 @@ public class CastleDataScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+  
+    for (int i = 0; i < castleCount; i++) {
+    
+      castlesArray[i].GetComponent<Castles>().castleNumber = i+1;
+      
+    }
 	
 	}
 	

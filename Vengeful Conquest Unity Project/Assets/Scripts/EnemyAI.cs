@@ -61,8 +61,6 @@ public class EnemyAI : MonoBehaviour {
 	      }
 	    }
 	  }
-	  
-	  Debug.Log (targetArray[closestIndex].name);
 	  return closestIndex;
 	}
 	

@@ -56,4 +56,18 @@ public class PlayerDataScript : MonoBehaviour {
 	  player.GetComponent<Renderer>().enabled = true;
 	
 	}
+  
+  public string getPlayerName() {
+  
+    return player.GetComponent<PlayerData>().playerName;
+    
+  }
+  
+  public void setPlayerName(string playerName) {
+  
+    player.GetComponent<PlayerData>().playerName = playerName;
+  
+  }
+  
+  
 }

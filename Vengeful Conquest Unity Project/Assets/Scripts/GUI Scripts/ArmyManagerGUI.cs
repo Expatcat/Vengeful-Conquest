@@ -8,6 +8,7 @@ public class ArmyManagerGUI : MonoBehaviour {
   private Texture ArmyManager; //active state
   
   private GUIStyle guiStyle = new GUIStyle();
+  public GUISkin armyManagerSkin;
   
   //Data Information
   private DataScript data; private ArmyDataScript armyData; private CastleDataScript castleData;
@@ -67,7 +68,7 @@ public class ArmyManagerGUI : MonoBehaviour {
   /* displays screen GUI's */
   void OnGUI() {
   
-     GUI.skin.button.wordWrap = true;
+     GUI.skin = armyManagerSkin;
 
      //Army Manager GUI
      if (displayArmyManager) {
@@ -94,25 +95,26 @@ public class ArmyManagerGUI : MonoBehaviour {
         
        }
        
+       
        if (GUI.Button(new Rect(button2X, button2Y, soldierButtonWidth, soldierButtonHeight), 
          soldier2.soldierName)) {
         
-	   }
+	     }
 			
-	   if (GUI.Button(new Rect(button3X, button3Y, soldierButtonWidth, soldierButtonHeight), 
-	     soldier3.soldierName)) {
-				
-	   }
-	   
-		if (GUI.Button(new Rect(button4X, button4Y, soldierButtonWidth, soldierButtonHeight), 
-          soldier4.soldierName)) {
-				
-	   }
-	   
-	   if (GUI.Button(new Rect(button5X, button5Y, soldierButtonWidth, soldierButtonHeight), 
-	     soldier5.soldierName)) {
-				
-	   }
+  	   if (GUI.Button(new Rect(button3X, button3Y, soldierButtonWidth, soldierButtonHeight), 
+  	     soldier3.soldierName)) {
+  				
+  	   }
+  	   
+  		if (GUI.Button(new Rect(button4X, button4Y, soldierButtonWidth, soldierButtonHeight), 
+            soldier4.soldierName)) {
+  				
+  	   }
+  	   
+  	   if (GUI.Button(new Rect(button5X, button5Y, soldierButtonWidth, soldierButtonHeight), 
+  	     soldier5.soldierName)) {
+  				
+  	   }
        
        
        //Displays castles to check troops
@@ -269,32 +271,31 @@ public class ArmyManagerGUI : MonoBehaviour {
     /* castle button sizes and offsets */
     castleButtonWidth = 112; castleButtonHeight = 20; //castle button size
     castleBackWidth = 50; castleBackHeight = 20; castleBackX = guiXStart + 50;  castleBackY = guiXStart + 303; //castle back button
-	castleSelectedWidth = 140; castleSelectedHeight = 30; castleSelectedX = guiXStart + 460; castleSelectedY = guiYStart + 310;
+	  castleSelectedWidth = 140; castleSelectedHeight = 30; castleSelectedX = guiXStart + 460; castleSelectedY = guiYStart + 310;
 	
     castle1X = guiXStart + 65; castle1Y = guiYStart + 343; //1st castle button offset
     castle2X = castle1X + castleXGap; castle2Y = castle1Y;
     castle3X = castle2X + castleXGap; castle3Y = castle1Y;
     castle4X = castle3X + castleXGap; castle4Y = castle1Y;
-	castle5X = castle4X + castleXGap; castle5Y = castle1Y;
+	  castle5X = castle4X + castleXGap; castle5Y = castle1Y;
 	
-	castle6X = castle1X; castle6Y = castle1Y + castleYGap;
-	castle7X = castle2X; castle7Y = castle6Y;
-	castle8X = castle3X; castle8Y = castle6Y;
-	castle9X = castle4X; castle9Y = castle6Y;
-	castle10X = castle5X; castle10Y = castle6Y;
-	
-	castle11X = castle1X; castle11Y = castle6Y + castleYGap;
-	castle12X = castle2X; castle12Y = castle11Y;
-	castle13X = castle3X; castle13Y = castle11Y;
-	castle14X = castle4X; castle14Y = castle11Y;
-	castle15X = castle5X; castle15Y = castle11Y;
-	
-	castle16X = castle1X; castle16Y = castle11Y + castleYGap;
-	castle17X = castle2X; castle17Y = castle16Y;
-	castle18X = castle3X; castle18Y = castle16Y;
-	castle19X = castle4X; castle19Y = castle16Y;
-	castle20X = castle5X; castle20Y = castle16Y;
-    
+  	castle6X = castle1X; castle6Y = castle1Y + castleYGap;
+  	castle7X = castle2X; castle7Y = castle6Y;
+  	castle8X = castle3X; castle8Y = castle6Y;
+  	castle9X = castle4X; castle9Y = castle6Y;
+  	castle10X = castle5X; castle10Y = castle6Y;
+  	
+  	castle11X = castle1X; castle11Y = castle6Y + castleYGap;
+  	castle12X = castle2X; castle12Y = castle11Y;
+  	castle13X = castle3X; castle13Y = castle11Y;
+  	castle14X = castle4X; castle14Y = castle11Y;
+  	castle15X = castle5X; castle15Y = castle11Y;
+  	
+  	castle16X = castle1X; castle16Y = castle11Y + castleYGap;
+  	castle17X = castle2X; castle17Y = castle16Y;
+  	castle18X = castle3X; castle18Y = castle16Y;
+  	castle19X = castle4X; castle19Y = castle16Y;
+  	castle20X = castle5X; castle20Y = castle16Y;
     
   }
   
@@ -305,37 +306,37 @@ public class ArmyManagerGUI : MonoBehaviour {
     data = GameObject.Find ("Data").GetComponent<DataScript>();
     
     //load the data by calling getData with String name
-	armyData = (ArmyDataScript)data.getData ("Army Data");
-	castleData = (CastleDataScript)data.getData("Castle Data");
-    
-    //loads the soldiers array
-	soldier1 = armyData.partySoldiers[0].GetComponent<SoldierDataScript>();
-	soldier2 = armyData.partySoldiers[1].GetComponent<SoldierDataScript>();
-	soldier3 = armyData.partySoldiers[2].GetComponent<SoldierDataScript>();
-	soldier4 = armyData.partySoldiers[3].GetComponent<SoldierDataScript>();
-	soldier5 = armyData.partySoldiers[4].GetComponent<SoldierDataScript>();
-	
-	//loads the castles array
-	castle1 = castleData.castlesArray[0].GetComponent<Castles>();
-	castle2 = castleData.castlesArray[1].GetComponent<Castles>();
-	castle3 = castleData.castlesArray[2].GetComponent<Castles>();
-	castle4 = castleData.castlesArray[3].GetComponent<Castles>();
-	castle5 = castleData.castlesArray[4].GetComponent<Castles>();
-	castle6 = castleData.castlesArray[5].GetComponent<Castles>();
-	castle7 = castleData.castlesArray[6].GetComponent<Castles>();
-	castle8 = castleData.castlesArray[7].GetComponent<Castles>();
-	castle9 = castleData.castlesArray[8].GetComponent<Castles>();
-	castle10 = castleData.castlesArray[9].GetComponent<Castles>();
-	castle11 = castleData.castlesArray[10].GetComponent<Castles>();
-	castle12 = castleData.castlesArray[11].GetComponent<Castles>();
-	castle13 = castleData.castlesArray[12].GetComponent<Castles>();
-	castle14 = castleData.castlesArray[13].GetComponent<Castles>();
-	castle15 = castleData.castlesArray[14].GetComponent<Castles>();
-	castle16 = castleData.castlesArray[15].GetComponent<Castles>();
-	castle17 = castleData.castlesArray[16].GetComponent<Castles>();
-	castle18 = castleData.castlesArray[17].GetComponent<Castles>();
-	castle19= castleData.castlesArray[18].GetComponent<Castles>();
-	castle20 = castleData.castlesArray[19].GetComponent<Castles>();
+  	armyData = (ArmyDataScript)data.getData ("Army Data");
+  	castleData = (CastleDataScript)data.getData("Castle Data");
+      
+      //loads the soldiers array
+  	soldier1 = armyData.partySoldiers[0].GetComponent<SoldierDataScript>();
+  	soldier2 = armyData.partySoldiers[1].GetComponent<SoldierDataScript>();
+  	soldier3 = armyData.partySoldiers[2].GetComponent<SoldierDataScript>();
+  	soldier4 = armyData.partySoldiers[3].GetComponent<SoldierDataScript>();
+  	soldier5 = armyData.partySoldiers[4].GetComponent<SoldierDataScript>();
+  	
+  	//loads the castles array
+  	castle1 = castleData.castlesArray[0].GetComponent<Castles>();
+  	castle2 = castleData.castlesArray[1].GetComponent<Castles>();
+  	castle3 = castleData.castlesArray[2].GetComponent<Castles>();
+  	castle4 = castleData.castlesArray[3].GetComponent<Castles>();
+  	castle5 = castleData.castlesArray[4].GetComponent<Castles>();
+  	castle6 = castleData.castlesArray[5].GetComponent<Castles>();
+  	castle7 = castleData.castlesArray[6].GetComponent<Castles>();
+  	castle8 = castleData.castlesArray[7].GetComponent<Castles>();
+  	castle9 = castleData.castlesArray[8].GetComponent<Castles>();
+  	castle10 = castleData.castlesArray[9].GetComponent<Castles>();
+  	castle11 = castleData.castlesArray[10].GetComponent<Castles>();
+  	castle12 = castleData.castlesArray[11].GetComponent<Castles>();
+  	castle13 = castleData.castlesArray[12].GetComponent<Castles>();
+  	castle14 = castleData.castlesArray[13].GetComponent<Castles>();
+  	castle15 = castleData.castlesArray[14].GetComponent<Castles>();
+  	castle16 = castleData.castlesArray[15].GetComponent<Castles>();
+  	castle17 = castleData.castlesArray[16].GetComponent<Castles>();
+  	castle18 = castleData.castlesArray[17].GetComponent<Castles>();
+  	castle19= castleData.castlesArray[18].GetComponent<Castles>();
+  	castle20 = castleData.castlesArray[19].GetComponent<Castles>();
 
 	
   }

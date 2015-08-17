@@ -4,6 +4,7 @@ using System.Collections;
 public class Castles : MonoBehaviour {
 
 	public string castleName;
+  public int castleNumber;
 	
 	public bool claimed = false;
 
