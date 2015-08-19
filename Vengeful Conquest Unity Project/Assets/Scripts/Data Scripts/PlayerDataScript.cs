@@ -4,27 +4,31 @@ using System.Collections;
 public class PlayerDataScript : MonoBehaviour {
 
 	public GameObject player;
+  
+  public DataScript data;
+  
+  public bool userControl = false;
 	
 	void Start() {
+  
+    data = GameObject.Find ("Data").GetComponent<DataScript>();
 	
+    SetPlayerState(false); //disables the player by default 
+  
 	}
 
 	// Use this for initialization
 	void OnLevelWasLoaded () {
 	
-	  if (Application.loadedLevelName == "MainMenu") {
-	    hidePlayer ();
-	  }
-	  
-	  else {
-	  
-	    showPlayer ();
-	  }
+	  if (Application.loadedLevel == data.worldSceneNumber) {
+      SetPlayerState (true);
+      SetUserControl (true);
+    }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	  //camera follow
 	  Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, Camera.main.transform.position.z);
 	
@@ -44,25 +48,27 @@ public class PlayerDataScript : MonoBehaviour {
 	}
 	
 	/* Stop showing the player */
-	void hidePlayer() {
-	
-      player.GetComponent<Renderer>().enabled = false;
-	
-	}
-	
-	/* Show the player */
-	void showPlayer() {
-	
-	  player.GetComponent<Renderer>().enabled = true;
-	
-	}
+	void SetPlayerState(bool playerState) {
   
+    player.SetActive (playerState);
+  
+  }
+  
+  /* Grants or removes control of the player */
+  void SetUserControl(bool newUserControl) {
+  
+    userControl = newUserControl;
+  
+  }
+  
+  /* Returns the name of the player */
   public string getPlayerName() {
   
     return player.GetComponent<PlayerData>().playerName;
     
   }
   
+  /* Sets the name of the player */
   public void setPlayerName(string playerName) {
   
     player.GetComponent<PlayerData>().playerName = playerName;

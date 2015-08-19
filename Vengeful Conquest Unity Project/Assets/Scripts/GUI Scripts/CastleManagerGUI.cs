@@ -60,7 +60,6 @@ public class CastleManagerGUI : MonoBehaviour {
     if (castleData.castlesArray[castleNumber].GetComponent<Castles>().claimed == true) {
     
       claimed = true;
-      Debug.Log ("HE");
     
     }
     

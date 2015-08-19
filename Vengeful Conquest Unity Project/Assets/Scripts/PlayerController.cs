@@ -8,16 +8,22 @@ using System.Collections;
  */
 public class PlayerController : MonoBehaviour {
 
+  public DataScript data;
+
   private Animator playerAnimator; //the animator component attached to the player sprite
   Vector3 move; //The direction the player will move
   public float speed = 1.0f; //the speed of the player
 
 	// Use this for initialization
 	void Start () {
+  
+    data = GameObject.Find ("Data").GetComponent<DataScript>();
 	
 	  playerAnimator = GetComponent<Animator>(); //sets to the proper animator
-	
+
+  
 	}
+  
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,8 +32,10 @@ public class PlayerController : MonoBehaviour {
 	  bool north = false, northeast = false, east = false, southeast = false, south = false, 
 	    southwest = false, west = false, northwest = false, still = true;
 	
+    PlayerDataScript playerData = (PlayerDataScript)data.getData ("Player Data");
+  
     /* sets the direction booleans for clarity */
-    {
+    if (playerData.userControl == true) {
       if (Input.GetKey("w") && Input.GetKey ("a"))
   	    northwest = true;
       
