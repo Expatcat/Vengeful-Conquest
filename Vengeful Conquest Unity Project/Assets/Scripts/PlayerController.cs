@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
     PlayerDataScript playerData = (PlayerDataScript)data.getData ("Player Data");
   
     /* sets the direction booleans for clarity */
-    if (playerData.userControl == true) {
+    if (playerData.GetUserControl () == true) {
       if (Input.GetKey("w") && Input.GetKey ("a"))
   	    northwest = true;
       

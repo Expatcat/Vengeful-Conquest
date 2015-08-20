@@ -25,7 +25,7 @@ public class ArmyManagerGUI : MonoBehaviour {
   private bool displayArmyManager = false;
   
   //GUI constants
-  private static float guiXStart, guiYStart, guiWidth = 700, guiHeight = 500;
+  private float guiXStart, guiYStart, guiWidth = 700, guiHeight = 500;
   
   //ArmyManager button info
   private static float soldierButtonWidth = 74, soldierButtonHeight = 64, button1X, button1Y, button2X, 

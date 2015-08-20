@@ -11,10 +11,16 @@ public class DataScript : MonoBehaviour {
   public int worldSceneNumber;
   public int battlefieldSceneNumber;
   
+  [HideInInspector]
+  public Vector2 screenOffset;
+  private float screenWidth = 800;
+  private float screenHeight = 600;
+  
   public string armyManagerKey;
   
   [HideInInspector]
-  public Vector2 guiSize = new Vector2(700, 500);
+ // public Vector2 guiSize = new Vector2(700, 500);
+  public Vector2 guiSize;
   public Vector2 guiStart;
 
     void Awake() {
@@ -31,9 +37,18 @@ public class DataScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
   
+    screenWidth = Screen.width;
+    screenHeight = Screen.height;
+    
+    screenOffset.x = (screenWidth / 800);
+    screenOffset.y = (screenHeight / 600);
+  
     //sets the GUI Start values
-    guiStart.x = (Screen.width / 2) - 350;
-    guiStart.y = (Screen.height / 2) - 250;
+    guiStart.x = 50 * screenOffset.x;
+    guiStart.y = 50 * screenOffset.y;
+    
+    guiSize.x = 700 * screenOffset.x;
+    guiSize.y = 500 * screenOffset.y;
 	
 	}
 	

@@ -7,7 +7,7 @@ public class PlayerDataScript : MonoBehaviour {
   
   public DataScript data;
   
-  public bool userControl = false;
+  private bool userControl = false;
 	
 	void Start() {
   
@@ -48,16 +48,22 @@ public class PlayerDataScript : MonoBehaviour {
 	}
 	
 	/* Stop showing the player */
-	void SetPlayerState(bool playerState) {
+	public void SetPlayerState(bool playerState) {
   
     player.SetActive (playerState);
   
   }
   
   /* Grants or removes control of the player */
-  void SetUserControl(bool newUserControl) {
+  public void SetUserControl(bool newUserControl) {
   
     userControl = newUserControl;
+  
+  }
+  
+  public bool GetUserControl() {
+  
+    return userControl;
   
   }
   

@@ -36,7 +36,6 @@ public class CastleManagerGUI : MonoBehaviour {
       
       else {
       
-        Debug.Log ("HE");
        
         GUI.DrawTexture (new Rect(data.guiStart.x, data.guiStart.y, data.guiSize.x, data.guiSize.y), unclaimedCastleGUI);
       
