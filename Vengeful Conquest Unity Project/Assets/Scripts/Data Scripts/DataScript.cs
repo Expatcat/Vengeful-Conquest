@@ -3,9 +3,9 @@ using System.Collections;
 
 public class DataScript : MonoBehaviour {
 
-	public GameObject armyData;
-	public GameObject castleData;
-	public GameObject playerData;
+	public ArmyDataScript armyData;
+	public CastleDataScript castleData;
+	public PlayerDataScript playerData;
 
   public int openingSceneNumber;
   public int worldSceneNumber;
@@ -13,6 +13,7 @@ public class DataScript : MonoBehaviour {
   
   [HideInInspector]
   public Vector2 screenOffset;
+  public bool screenChange;
   private float screenWidth = 800;
   private float screenHeight = 600;
   
@@ -20,8 +21,8 @@ public class DataScript : MonoBehaviour {
   
   [HideInInspector]
  // public Vector2 guiSize = new Vector2(700, 500);
-  public Vector2 guiSize;
-  public Vector2 guiStart;
+  private Rect standardGuiWindow;
+  public Rect guiWindow;
 
     void Awake() {
       
@@ -31,42 +32,46 @@ public class DataScript : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+  
+    standardGuiWindow = new Rect(50, 50, 700, 500);
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-  
+
     screenWidth = Screen.width;
     screenHeight = Screen.height;
     
     screenOffset.x = (screenWidth / 800);
     screenOffset.y = (screenHeight / 600);
-  
-    //sets the GUI Start values
-    guiStart.x = 50 * screenOffset.x;
-    guiStart.y = 50 * screenOffset.y;
     
-    guiSize.x = 700 * screenOffset.x;
-    guiSize.y = 500 * screenOffset.y;
-	
-	}
-	
-	public Object getData(string dataName) {
-	
-	  if (dataName == "Army Data"){
-	    return armyData.GetComponent<ArmyDataScript>(); 
-	  }
-	    
-	  if (dataName == "Castle Data")
-	    return castleData.GetComponent<CastleDataScript>();
-	  
-	  if (dataName == "Player Data")
-	    return playerData.GetComponent<PlayerDataScript>();
-	  
-	  else
-	    return null;
-	    
+  
+      guiWindow.x = standardGuiWindow.x * screenOffset.x;
+      guiWindow.y = standardGuiWindow.y * screenOffset.y;
+      guiWindow.width = standardGuiWindow.width * screenOffset.x;
+      guiWindow.height = standardGuiWindow.height * screenOffset.y;
+      
+
 	}
   
+  public Vector2 UpdateVector(Vector2 vector) {
+  
+    vector.x *= screenOffset.x;
+    vector.y *= screenOffset.y;
+    
+    return vector;
+    
+  }
+  
+  public Rect UpdateRect(Rect rect) {
+  
+    rect.x *= screenOffset.x;
+    rect.y *= screenOffset.y;
+    rect.width *= screenOffset.x;
+    rect.height *= screenOffset.y;
+    
+    return rect;
+    
+  }
 }

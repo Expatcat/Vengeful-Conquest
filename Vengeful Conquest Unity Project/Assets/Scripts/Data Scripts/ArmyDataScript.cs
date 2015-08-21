@@ -3,24 +3,31 @@ using System.Collections;
 
 public class ArmyDataScript : MonoBehaviour {
 
+  public Object soldierObject;
+
+  public GameObject partySoldierObject;
+  public GameObject UnassignedSoldierObject;
+
 	/* Soldier constants */
-    private static int partySoldierCount = 5;
-    
-    /* Soldier Indeces */
-    private static int soldier1 = 0;
-    private static int soldier2 = 1;
-    private static int soldier3 = 2;
-    private static int soldier4 = 3;
-    private static int soldier5 = 4;
+  public int partySize = 5;
+  public int armySize = 50;  
+  
+  public Soldiers[] armyArray;
     
 	/* Party Soldier Array */
-	public GameObject[] partySoldiers = new GameObject[partySoldierCount];
+	public Soldiers[] partySoldiers;
+  
+  private int nextFreeSoldierIndex = 0;
+  private int nextFreePartyIndex = 0;
 	
 	void Awake() {
 	
     }
 	
 	void Start() {
+  
+    partySoldiers = new Soldiers[partySize];
+    armyArray = new Soldiers[armySize];
 	
 	}
 	
@@ -30,10 +37,10 @@ public class ArmyDataScript : MonoBehaviour {
 	  int soldierCount = 0; //starts at 0
 	
 	  //loops through all soldiers
-	  for (int i = 0; i < partySoldierCount; i++) {
+	  for (int i = 0; i < partySize; i++) {
 	  
 	    //checks if soldiers are active
-	    if (partySoldiers[i].GetComponent<SoldierDataScript>().active == true) {
+	    if (partySoldiers[i].active == true) {
 	     
 	      //increments number of active soldiers
 	      soldierCount++;
@@ -45,5 +52,62 @@ public class ArmyDataScript : MonoBehaviour {
 	  return soldierCount;
 	  
 	}
+  
+  public int GetNextSoldierIndex() {
+  
+    return nextFreeSoldierIndex;
+  
+  }
+  
+  public Soldiers addSoldier() {
+  
+    GameObject newSoldier = (GameObject)Instantiate(soldierObject);
+    
+    newSoldier.transform.parent = UnassignedSoldierObject.transform;
+  
+    armyArray[nextFreeSoldierIndex] = newSoldier.GetComponent<Soldiers>();
+    
+    armyArray[nextFreeSoldierIndex].SetName("Unnamed");
+    
+    armyArray[nextFreeSoldierIndex].SetNumber (nextFreeSoldierIndex);
+    
+    return armyArray[nextFreeSoldierIndex++];
+    
+    
+  }
+  
+  public Soldiers addSoldier(string newSoldierName) {
+  
+    GameObject newSoldier = (GameObject)Instantiate(soldierObject);
+    
+    newSoldier.transform.parent = UnassignedSoldierObject.transform;
+    
+    armyArray[nextFreeSoldierIndex] = newSoldier.GetComponent<Soldiers>();
+    
+    armyArray[nextFreeSoldierIndex].SetName (newSoldierName);
+    
+    armyArray[nextFreeSoldierIndex].SetNumber (nextFreeSoldierIndex);
+    
+    return armyArray[nextFreeSoldierIndex++];
+  
+  }
+  
+  public int GetNextPartyIndex() {
+  
+    return nextFreePartyIndex;
+    
+  }
+  
+  public void IncrementPartyIndex() {
+  
+    nextFreePartyIndex++;
+  
+  }
+  
+  public void DecrementPartyIndex() {
+  
+    nextFreePartyIndex--;
+    
+  }
 
 }

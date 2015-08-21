@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour {
 	  bool north = false, northeast = false, east = false, southeast = false, south = false, 
 	    southwest = false, west = false, northwest = false, still = true;
 	
-    PlayerDataScript playerData = (PlayerDataScript)data.getData ("Player Data");
+    PlayerDataScript playerData = data.playerData;
   
     /* sets the direction booleans for clarity */
     if (playerData.GetUserControl () == true) {

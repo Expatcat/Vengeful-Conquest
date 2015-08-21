@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerDataScript : MonoBehaviour {
 
-	public GameObject player;
+	public PlayerData player;
   
   public DataScript data;
   
@@ -37,7 +37,7 @@ public class PlayerDataScript : MonoBehaviour {
 	/* Returns the actual player game object */
 	public GameObject getPlayerObject() { 
 	
-	  return this.player;
+	  return this.player.gameObject;
 	
 	}
 	
@@ -50,7 +50,17 @@ public class PlayerDataScript : MonoBehaviour {
 	/* Stop showing the player */
 	public void SetPlayerState(bool playerState) {
   
-    player.SetActive (playerState);
+    player.gameObject.SetActive (playerState);
+    
+    if (playerState == true) {
+      Camera.main.transform.parent = this.transform;
+    }
+    
+    else {
+    
+      Camera.main.transform.parent = null;
+      
+    }
   
   }
   

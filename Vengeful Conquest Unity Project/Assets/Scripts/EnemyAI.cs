@@ -9,15 +9,15 @@ public class EnemyAI : MonoBehaviour {
     
     DataScript data; //data script 
 	ArmyDataScript targetArmy; //player's army
-	SoldierDataScript soldier1, soldier2, soldier3, soldier4, soldier5;
+	Soldiers soldier1, soldier2, soldier3, soldier4, soldier5;
 	PlayerDataScript player; //player information
 
 	// Use this for initialization
 	void Start () {
 
       data = GameObject.Find ("Data").GetComponent<DataScript>(); //loads the data script
-      targetArmy = (ArmyDataScript)data.getData ("Army Data"); //loads the army data
-      player = (PlayerDataScript)data.getData ("Player Data"); //loads the player data
+      targetArmy = data.armyData; //loads the army data
+      player = data.playerData; //loads the player data
       
       int targetArmySize = targetArmy.getSoldierCount(); //number of party members in player's party
       
@@ -26,7 +26,7 @@ public class EnemyAI : MonoBehaviour {
       //set elements of the target array to player and party
       for (int i = 0; i < targetArmySize; i++) {
       
-        targetArray[i] = targetArmy.partySoldiers[i];
+        //targetArray[i] = targetArmy.partySoldiers[i];
         
       }
       

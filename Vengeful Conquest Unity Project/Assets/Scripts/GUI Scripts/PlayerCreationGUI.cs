@@ -16,29 +16,29 @@ public class PlayerCreationGUI : MonoBehaviour {
   
   //variables for the creation of the player name text field
   private Vector2 playerNameLoc, playerNameSize;
-  
-  private Vector2 appearanceLoc, appearanceSize;
-  
-  private Vector2 ability1Loc, ability1Size;
-  private Vector2 ability2Loc, ability2Size;
-  private Vector2 ability3Loc, ability3Size;
-  private Vector2 ability4Loc, ability4Size;
+ 
   
   private Vector2 startGameLoc, startGameSize;
   
   
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 	
     data = GameObject.Find("Data").GetComponent<DataScript>();
-    
+
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+  
     //coordinates of the player name field
     playerNameLoc = new Vector2 (
-      (data.guiStart.x + 146) * data.screenOffset.x, 
-      (data.guiStart.y + 106) * data.screenOffset.y
+      data.guiWindow.x + (146 * data.screenOffset.x), 
+      data.guiWindow.y + (106 * data.screenOffset.y)
     );
-    
+  
     //size of the player name field                             
     playerNameSize = new Vector2 (
       231 * data.screenOffset.x, 
@@ -47,8 +47,8 @@ public class PlayerCreationGUI : MonoBehaviour {
     
     //coordinates of the start game button
     startGameLoc = new Vector2(
-      (data.guiStart.x + 508) * data.screenOffset.x, 
-      (data.guiStart.y + 427) * data.screenOffset.y
+      data.guiWindow.x + (508 * data.screenOffset.x), 
+      data.guiWindow.y + (427 * data.screenOffset.y)
     );
     
     //size of the start game button
@@ -57,19 +57,14 @@ public class PlayerCreationGUI : MonoBehaviour {
       43 * data.screenOffset.y
     );
 	}
-	
-	// Update is called once per frame
-	void Update () {
- 
-	}
   
   void OnGUI() {
   
     if (guiState) {
     
-      GUI.DrawTexture(new Rect(data.guiStart.x, data.guiStart.y, data.guiSize.x, data.guiSize.y), playerCreationScreen);
+      GUI.DrawTexture(data.guiWindow, playerCreationScreen);
       
-      PlayerDataScript playerData = data.playerData.GetComponent<PlayerDataScript>;
+      PlayerDataScript playerData = data.playerData.GetComponent<PlayerDataScript>();
       
       /* GUI field to set the player name. Updates in data object */
       playerData.setPlayerName (
@@ -96,6 +91,8 @@ public class PlayerCreationGUI : MonoBehaviour {
   void OnLevelWasLoaded () {
   
     guiState = true;
+    
+
     data.playerData.GetComponent<PlayerDataScript>().SetUserControl(false);
   
   }

@@ -17,7 +17,7 @@ public class CastleManagerGUI : MonoBehaviour {
 	void Start () {
     
     data = GameObject.Find("Data").GetComponent<DataScript>();
-    castleData = (CastleDataScript)data.getData ("Castle Data");
+    castleData = (CastleDataScript)data.castleData;
 	
 	}
 	
@@ -37,7 +37,7 @@ public class CastleManagerGUI : MonoBehaviour {
       else {
       
        
-        GUI.DrawTexture (new Rect(data.guiStart.x, data.guiStart.y, data.guiSize.x, data.guiSize.y), unclaimedCastleGUI);
+        GUI.DrawTexture (data.guiWindow, unclaimedCastleGUI);
       
       }
     
