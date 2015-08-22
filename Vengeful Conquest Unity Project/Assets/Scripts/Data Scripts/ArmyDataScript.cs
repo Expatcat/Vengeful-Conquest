@@ -8,8 +8,10 @@ public class ArmyDataScript : MonoBehaviour {
 
   public UnityEngine.Object soldierObject; //prefab to create soldiers from
 
+  public static ArmyDataScript armyData;
   public static int armyCap = 50; //number of soldiers allowed in player's army
   public static int partyCap = 5; //number of soldiers allowed in player's party
+  public static int nullSoldierIndex = -1;
 
   /* Data To Save */
   private int armySize = 0; //total number of soldiers in player's army
@@ -29,13 +31,26 @@ public class ArmyDataScript : MonoBehaviour {
 	/* Party Soldier Array */
   
 	void Awake() {
+  
+    for (int i = 0; i < partySoldiers.Length; i++) {
+    
+      partySoldiers[i] = nullSoldierIndex;
+    
+    }
 	
   }
 	
 	void Start() {
   
+    armyData = this;
+  
 	
 	}
+  
+  void Update() {
+  
+  
+  }
   
   public int UnlockArmySlot() {
   
@@ -79,7 +94,6 @@ public class ArmyDataScript : MonoBehaviour {
       GameObject newSoldier = (GameObject)Instantiate(soldierObject);
     
       armyArray[armySize] = newSoldier.GetComponent<Soldiers>();
-      armyArray[armySize].MoveToUnassigned(); //moves the soldier to the unassigned category
       armyArray[armySize].SetName ("Unnamed");
       armyArray[armySize].SetNumber (armySize);
       armyArray[armySize].transform.parent = transform;
@@ -101,11 +115,28 @@ public class ArmyDataScript : MonoBehaviour {
     GameObject newSoldier = (GameObject)Instantiate(soldierObject);
     
     armyArray[armySize] = newSoldier.GetComponent<Soldiers>();
-    armyArray[armySize].MoveToUnassigned(); 
     armyArray[armySize].SetName (newSoldierName);
     armyArray[armySize].SetNumber (armySize);
     
     return armyArray[armySize++];
+  
+  }
+  
+  public void SetSoldierName(int soldierIndex, string name) {
+  
+    armyArray[soldierIndex].SetName (name);
+  
+  }
+  
+  public string GetSoldierName(int soldierIndex) {
+  
+    return armyArray[soldierIndex].GetName ();
+  
+  }
+  
+  public Soldiers GetSoldier(int soldierIndex) {
+  
+    return armyArray[soldierIndex];
   
   }
   
@@ -125,6 +156,7 @@ public class ArmyDataScript : MonoBehaviour {
   public void SetPartySoldier(int soldierIndex, int partyIndex) {
   
     partySoldiers[partyIndex] = soldierIndex;
+    CheckPartyDuplicates(partyIndex);
   
   }
   
@@ -132,6 +164,38 @@ public class ArmyDataScript : MonoBehaviour {
   
     return partySoldiers[partyIndex];
   
+  }
+  
+  public void RemovePartySoldier(int partyIndex) {
+  
+    partySoldiers[partyIndex] = nullSoldierIndex;
+  
+  }
+  
+  public void CheckPartyDuplicates(int newPartyIndex) {
+  
+    for (int otherIndeces = 0; otherIndeces < partySoldiers.Length; otherIndeces++) {
+  
+      if (newPartyIndex != otherIndeces && partySoldiers[newPartyIndex] == partySoldiers[otherIndeces]) {
+      
+        partySoldiers[otherIndeces] = nullSoldierIndex;
+      
+      }
+    }
+  }
+  
+  public bool IsNullSoldier(int armyIndex) { 
+  
+    if (armyArray[armyIndex] == null) {
+    
+      return true;
+      
+    }
+    
+    else {
+    
+      return false;
+    }
   }
   
   public int GetEmptyArmySlots() {
@@ -157,8 +221,7 @@ public class ArmyDataScript : MonoBehaviour {
     
     /* Data to save */
     
-    savedData.armySize = armySize;
-    Debug.Log(armySize);
+    savedData.armySize = armySize;;
     savedData.armySlots = armySlots;
     savedData.lockedArmySlots = lockedArmySlots;
     
@@ -201,7 +264,6 @@ public class ArmyDataScript : MonoBehaviour {
         AddSoldier ();
         armyArray[i].Load (i);
        
-      
       }
     }
   }

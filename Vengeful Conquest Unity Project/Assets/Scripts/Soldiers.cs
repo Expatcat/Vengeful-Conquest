@@ -52,11 +52,17 @@ public class Soldiers : MonoBehaviour {
   
   }
   
-  public void MoveToUnassigned() {
+  public void MoveToUnassigned(int groupIndex) {
     
     if (group == partyGroup) {
     
-      /* Do stuff with the party */
+      armyData.RemovePartySoldier(groupIndex);
+    
+    }
+    
+    else if (group == castleGroup) {
+    
+    
     
     }
     
