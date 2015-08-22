@@ -6,7 +6,7 @@ public class SoldierManagerGUI : MonoBehaviour {
   public Texture soldierManagerScreen;
   private DataScript data;
   
-  private Soldiers armySoldier, currentSoldier;
+  private Soldiers currentSoldier;
   private string oldObjectName;
   
   bool showSoldierManager = false;
@@ -39,9 +39,7 @@ public class SoldierManagerGUI : MonoBehaviour {
     nameField = data.UpdateRect(nameField);
     cancelButton = data.UpdateRect (cancelButton);
     acceptButton = data.UpdateRect (acceptButton);
-    
-    
-	
+
   }
   
   void OnGUI () {
@@ -50,7 +48,7 @@ public class SoldierManagerGUI : MonoBehaviour {
     
       GUI.DrawTexture (data.guiWindow, soldierManagerScreen);
   
-      currentSoldier.SetName(GUI.TextField(nameField, currentSoldier.GetName()));
+      currentSoldier.soldierName = (GUI.TextField(nameField, currentSoldier.GetName()));
       
       if (GUI.Button(cancelButton, "Cancel")) {
      
@@ -73,42 +71,35 @@ public class SoldierManagerGUI : MonoBehaviour {
   private void toggleGUI() {
   
     showSoldierManager = !showSoldierManager;
-    Debug.Log (sourceScript.GetType());
  
     if (showSoldierManager == false && (sourceScript.GetType() == typeof(ArmyManagerGUI))) {
       
       GetComponent<ArmyManagerGUI>().toggleArmyManager();
       
     }
-    
   }
   
   public void toggleGUI(Soldiers soldierScript, Object sourceScript) {
  
     showSoldierManager = !showSoldierManager; 
-    
-    currentSoldier = (Soldiers)soldierScript.GetSoldierCopy();
-    armySoldier = soldierScript;
-    oldObjectName = armySoldier.GetName ();
+
+    currentSoldier = this.gameObject.AddComponent<Soldiers>();
+    currentSoldier = soldierScript.GetSoldierInfo (currentSoldier);
 
     this.sourceScript = sourceScript;
 
-    
-    if (showSoldierManager == true) {
-    
-      
-    }
   }
   
   void UndoChanges() {
   
-    currentSoldier.SetName (oldObjectName);
-  
+    Destroy (currentSoldier);
+    
   }
   
   void AcceptChanges() {
-  
-    data.armyData.armyArray[armySoldier.soldierNumber] = currentSoldier;
+
+    data.armyData.armyArray[currentSoldier.soldierNumber].SetSoldierInfo (currentSoldier);
+    Destroy (currentSoldier);
   
   }
 }

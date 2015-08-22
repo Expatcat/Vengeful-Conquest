@@ -10,7 +10,7 @@ public class MainMenuScript : MonoBehaviour {
 
   void Start() {
   
-    data = GameObject.Find ("Data").GetComponent<DataScript>();
+    data = DataScript.data;
   
   }
 
@@ -31,14 +31,14 @@ public class MainMenuScript : MonoBehaviour {
 
 		//displays the "New Game" button
 		if (GUI.Button (new Rect (playButtonX, playButtonY, playButtonWidth, playButtonHeight), playButtonText)) {
-		
+    
 		  Application.LoadLevel (data.openingSceneNumber);
 		
 		}
 		
-		if (GUI.Button (new Rect (playButtonX, playButtonY + 60, playButtonWidth, playButtonHeight), "Resume Game")) {
-			
-			Application.LoadLevel (data.worldSceneNumber);
+		if (GUI.Button (new Rect (playButtonX, playButtonY + 60, playButtonWidth, playButtonHeight), "Load Game")) {
+    
+      data.LoadData ();
 			
 		}
 	}

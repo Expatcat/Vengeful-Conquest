@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerData : MonoBehaviour {
+public class Player : MonoBehaviour {
 
 	public string playerName;
   public int health;

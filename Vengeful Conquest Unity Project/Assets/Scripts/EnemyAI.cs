@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour {
       targetArmy = data.armyData; //loads the army data
       player = data.playerData; //loads the player data
       
-      int targetArmySize = targetArmy.getSoldierCount(); //number of party members in player's party
+      int targetArmySize = targetArmy.GetArmySize(); //number of party members in player's party
       
       targetArray = new GameObject[targetArmySize + 1]; //create an array of targets including the player
       

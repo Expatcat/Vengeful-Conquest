@@ -1,113 +1,222 @@
 using UnityEngine;
 using System.Collections;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class ArmyDataScript : MonoBehaviour {
 
-  public Object soldierObject;
+  public UnityEngine.Object soldierObject; //prefab to create soldiers from
 
-  public GameObject partySoldierObject;
-  public GameObject UnassignedSoldierObject;
+  public static int armyCap = 50; //number of soldiers allowed in player's army
+  public static int partyCap = 5; //number of soldiers allowed in player's party
 
-	/* Soldier constants */
-  public int partySize = 5;
-  public int armySize = 50;  
+  /* Data To Save */
+  private int armySize = 0; //total number of soldiers in player's army
+  private int armySlots = 0; //number of open army slots
+  private int lockedArmySlots = armyCap; //number of locked army slots
   
-  public Soldiers[] armyArray;
+  private int partySize = 0; //total number of soldiers in player's party
+  private int partySlots = 0; //total number of open party slots
+  private int lockedPartySlots = partyCap; //number of locked party slots]
+  private int[] partySoldiers = new int[partyCap];
+  
+  /* End Data To Save */
+ 
+  /* Army Soldier Array */
+  public Soldiers[] armyArray = new Soldiers[armyCap];
     
 	/* Party Soldier Array */
-	public Soldiers[] partySoldiers;
   
-  private int nextFreeSoldierIndex = 0;
-  private int nextFreePartyIndex = 0;
-	
 	void Awake() {
 	
-    }
+  }
 	
 	void Start() {
   
-    partySoldiers = new Soldiers[partySize];
-    armyArray = new Soldiers[armySize];
 	
 	}
-	
-	/* gets the number of active soldiers */
-	public int getSoldierCount() {
-	
-	  int soldierCount = 0; //starts at 0
-	
-	  //loops through all soldiers
-	  for (int i = 0; i < partySize; i++) {
-	  
-	    //checks if soldiers are active
-	    if (partySoldiers[i].active == true) {
-	     
-	      //increments number of active soldiers
-	      soldierCount++;
-	      
-	    }
-	  }
-	  
-	  //returns active soldiers
-	  return soldierCount;
-	  
-	}
   
-  public int GetNextSoldierIndex() {
+  public int UnlockArmySlot() {
   
-    return nextFreeSoldierIndex;
+    /* If there's room for another slot */
+    if (armySize < armyCap) {
   
+      lockedArmySlots--; //decrements locked army slots
+      return armySlots++; //returns index of new slot and increments available army slots
+    
+    }
+    
+    else {
+    
+      return -1; //could not add slot
+    
+    }
   }
   
-  public Soldiers addSoldier() {
+  public int UnlockPartySlot() {
   
-    GameObject newSoldier = (GameObject)Instantiate(soldierObject);
+    if (partySize < partyCap) {
     
-    newSoldier.transform.parent = UnassignedSoldierObject.transform;
-  
-    armyArray[nextFreeSoldierIndex] = newSoldier.GetComponent<Soldiers>();
+      lockedPartySlots--;
+      
+      return partySlots++; //returns index of new slot and increments available party slots
+    }
     
-    armyArray[nextFreeSoldierIndex].SetName("Unnamed");
+    else {
     
-    armyArray[nextFreeSoldierIndex].SetNumber (nextFreeSoldierIndex);
-    
-    return armyArray[nextFreeSoldierIndex++];
-    
-    
+      return -1;
+      
+    }
   }
   
-  public Soldiers addSoldier(string newSoldierName) {
+  /* Add a new unnamed soldier */
+  public Soldiers AddSoldier() {
   
-    GameObject newSoldier = (GameObject)Instantiate(soldierObject);
+    /* Checks that there's a free army slot */
+    if (armySize < armySlots) {
+  
+      GameObject newSoldier = (GameObject)Instantiate(soldierObject);
     
-    newSoldier.transform.parent = UnassignedSoldierObject.transform;
+      armyArray[armySize] = newSoldier.GetComponent<Soldiers>();
+      armyArray[armySize].MoveToUnassigned(); //moves the soldier to the unassigned category
+      armyArray[armySize].SetName ("Unnamed");
+      armyArray[armySize].SetNumber (armySize);
+      armyArray[armySize].transform.parent = transform;
     
-    armyArray[nextFreeSoldierIndex] = newSoldier.GetComponent<Soldiers>();
-    
-    armyArray[nextFreeSoldierIndex].SetName (newSoldierName);
-    
-    armyArray[nextFreeSoldierIndex].SetNumber (nextFreeSoldierIndex);
-    
-    return armyArray[nextFreeSoldierIndex++];
-  
-  }
-  
-  public int GetNextPartyIndex() {
-  
-    return nextFreePartyIndex;
-    
-  }
-  
-  public void IncrementPartyIndex() {
-  
-    nextFreePartyIndex++;
-  
-  }
-  
-  public void DecrementPartyIndex() {
-  
-    nextFreePartyIndex--;
-    
-  }
+      return armyArray[armySize++]; //returns new soldier and increments the army size
 
+    }
+    
+    else {
+    
+      return null;
+      
+    }
+  }
+  
+  /* Add soldier with a given name */
+  public Soldiers AddSoldier(string newSoldierName) {
+  
+    GameObject newSoldier = (GameObject)Instantiate(soldierObject);
+    
+    armyArray[armySize] = newSoldier.GetComponent<Soldiers>();
+    armyArray[armySize].MoveToUnassigned(); 
+    armyArray[armySize].SetName (newSoldierName);
+    armyArray[armySize].SetNumber (armySize);
+    
+    return armyArray[armySize++];
+  
+  }
+  
+  public int GetArmySize() {
+  
+    return armySize;
+    
+  }
+  
+  public int GetPartySize() {
+  
+    return partySize;
+  
+  }
+  
+  
+  public void SetPartySoldier(int soldierIndex, int partyIndex) {
+  
+    partySoldiers[partyIndex] = soldierIndex;
+  
+  }
+  
+  public int GetPartySoldier(int partyIndex) {
+  
+    return partySoldiers[partyIndex];
+  
+  }
+  
+  public int GetEmptyArmySlots() {
+  
+    return armySlots - armySize;
+    
+  }
+  
+  public int GetEmptyPartySlots() {
+  
+    return partySlots - partySize;
+  
+  }
+  
+  public void Save() {
+    
+    BinaryFormatter formatter = new BinaryFormatter();
+    
+    Directory.CreateDirectory (DataScript.armyDir);
+    FileStream file = File.Create (DataScript.armyFile);
+    
+    ArmyData savedData = new ArmyData();
+    
+    /* Data to save */
+    
+    savedData.armySize = armySize;
+    Debug.Log(armySize);
+    savedData.armySlots = armySlots;
+    savedData.lockedArmySlots = lockedArmySlots;
+    
+    savedData.partySize = partySize;
+    savedData.partySlots = partySlots;
+    savedData.lockedPartySlots = lockedPartySlots;
+    savedData.partySoldiers = partySoldiers;
+    
+    for (int i = 0; i < armySize; i++) {
+    
+      armyArray[i].Save (i);
+    
+    }
+
+    formatter.Serialize (file, savedData);
+    file.Close();
+    
+  }
+  
+  public void Load() {
+    
+    if (File.Exists(DataScript.armyFile))
+    {
+      
+      BinaryFormatter formatter = new BinaryFormatter();
+      FileStream file = File.Open (DataScript.armyFile, FileMode.Open);
+      ArmyData savedData = (ArmyData)formatter.Deserialize (file);
+      file.Close ();
+      
+      /* Data to load */
+      armySlots = savedData.armySlots;
+      lockedArmySlots = savedData.lockedArmySlots;
+      
+      partySize = savedData.partySize;
+      partySlots = savedData.partySlots;
+      lockedPartySlots = savedData.lockedPartySlots;
+      partySoldiers = savedData.partySoldiers;
+      
+      for (int i = 0; i < savedData.armySize; i++) {
+        AddSoldier ();
+        armyArray[i].Load (i);
+       
+      
+      }
+    }
+  }
+}
+
+[Serializable]
+class ArmyData {
+
+  public int armySize; //total number of soldiers in player's army
+  public int armySlots; //number of open army slots
+  public int lockedArmySlots; //number of locked army slots
+  
+  public int partySize; //total number of soldiers in player's party
+  public int partySlots; //total number of open party slots
+  public int lockedPartySlots; //number of locked party slots
+  public int[] partySoldiers;
+  
 }

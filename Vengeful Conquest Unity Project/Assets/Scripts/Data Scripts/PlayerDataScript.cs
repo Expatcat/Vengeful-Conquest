@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerDataScript : MonoBehaviour {
 
-	public PlayerData player;
+	public Player player;
   
   public DataScript data;
   
@@ -80,14 +80,14 @@ public class PlayerDataScript : MonoBehaviour {
   /* Returns the name of the player */
   public string getPlayerName() {
   
-    return player.GetComponent<PlayerData>().playerName;
+    return player.GetComponent<Player>().playerName;
     
   }
   
   /* Sets the name of the player */
   public void setPlayerName(string playerName) {
   
-    player.GetComponent<PlayerData>().playerName = playerName;
+    player.GetComponent<Player>().playerName = playerName;
   
   }
   

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KingAbilityScript : MonoBehaviour {
+public class KingAbilities : MonoBehaviour {
 
   public static int abilityNum = 10;
 
