@@ -89,7 +89,6 @@ public class ArmyManagerGUI : MonoBehaviour {
     partyButtonGap = 91 * data.screenOffset.x;
     
     firstPartyButtonX = partyButton.x;
-    
 
   }
   
@@ -253,9 +252,19 @@ public class ArmyManagerGUI : MonoBehaviour {
 
         if (partyButtonsArray[i].buttonRect.Contains(releaseLoc)) {
        
+          if (partyPressed != -1 && partyButtonsArray[i].soldierIndex != -1) {
+         
+            armyData.SwapPartySoldiers(partyPressed, i);
+            
+         
+          }
+         
+          else {
+        
             armyData.GetSoldier(storedButton.soldierIndex).MoveToParty(i);
-            return;
+          }
           
+          return;
         }
       }
       
@@ -335,7 +344,7 @@ public class ArmyManagerGUI : MonoBehaviour {
   
     for (int i = 0; i < partyButtonsArray.Length; i++) {
     
-      if (partyButtonsArray[i].buttonRect.Contains (Event.current.mousePosition)) {
+      if (partyPressed == -1 && partyButtonsArray[i].buttonRect.Contains (Event.current.mousePosition)) {
       
         partyPressed = i; //stores the index of the party button
         return partyButtonsArray[i];
