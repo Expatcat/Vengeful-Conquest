@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Castles : MonoBehaviour {
 
-	public string castleName;
+	private string castleName;
   public int castleNumber;
 	
 	public bool claimed = false;
@@ -17,4 +17,17 @@ public class Castles : MonoBehaviour {
 	void Update () {
 	
 	}
+  
+  public string GetName() {
+  
+    return castleName;
+  
+  }
+  
+  public void SetName(string newCastleName) {
+  
+    castleName = newCastleName;
+    this.name = castleName;
+  
+  }
 }

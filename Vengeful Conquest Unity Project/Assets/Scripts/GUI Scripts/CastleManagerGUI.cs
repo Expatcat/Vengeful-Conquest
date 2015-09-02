@@ -4,20 +4,21 @@ using System.Collections;
 public class CastleManagerGUI : MonoBehaviour {
 
   private DataScript data;
-  private CastleDataScript castleData;
+  private GUIInfo guiInfo;
+  private KingdomDataScript kingdomData;
+  
+  private int castleNumber;
 
   private bool claimed;
-
-  public Texture claimedCastleGUI;
-  public Texture unclaimedCastleGUI;
 
   private bool guiState = false;
 
 	// Use this for initialization
 	void Start () {
     
-    data = GameObject.Find("Data").GetComponent<DataScript>();
-    castleData = (CastleDataScript)data.castleData;
+    guiInfo = GUIInfo.guiInfo;
+    data = DataScript.data;
+    kingdomData = KingdomDataScript.kingdomData;
 	
 	}
 	
@@ -32,17 +33,19 @@ public class CastleManagerGUI : MonoBehaviour {
     
       if (claimed) {
       
+        GUI.DrawTexture (guiInfo.GUIWindow, guiInfo.claimedCastleManagerScreen);
+       
+      
       }
       
       else {
       
-       
-        GUI.DrawTexture (data.guiWindow, unclaimedCastleGUI);
+        GUI.DrawTexture (guiInfo.GUIWindow, guiInfo.unclaimedCastleManagerScreen);
+        
+        GUI.Label (guiInfo.castleNameField, kingdomData.castlesArray[castleNumber].GetName ());
       
       }
-    
     }
-  
   }
   
   public void toggleGUI() {
@@ -52,11 +55,14 @@ public class CastleManagerGUI : MonoBehaviour {
   
   }
   
-  public void toggleGUI(int castleNumber) {
+  /* Method that turns on the GUI - is called from a castle trigger */
+  public void toggleGUI(int loadedCastleNumber) {
   
+    castleNumber = loadedCastleNumber;
+    
     guiState = !guiState;
     
-    if (castleData.castlesArray[castleNumber].GetComponent<Castles>().claimed == true) {
+    if (kingdomData.castlesArray[castleNumber].GetComponent<Castles>().claimed == true) {
     
       claimed = true;
     
@@ -67,8 +73,5 @@ public class CastleManagerGUI : MonoBehaviour {
       claimed = false;
       
     }
-   
-  
   }
-  
 }

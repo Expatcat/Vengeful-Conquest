@@ -49,8 +49,8 @@
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Castles.cs" />
      <Compile Include="Assets\Scripts\Data Scripts\ArmyDataScript.cs" />
-     <Compile Include="Assets\Scripts\Data Scripts\CastleDataScript.cs" />
      <Compile Include="Assets\Scripts\Data Scripts\DataScript.cs" />
+     <Compile Include="Assets\Scripts\Data Scripts\KingdomDataScript.cs" />
      <Compile Include="Assets\Scripts\Data Scripts\PlayerDataScript.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\EnemyMove.cs" />
@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\GUI Scripts\ArmyManagerGUI Backup.cs" />
      <Compile Include="Assets\Scripts\GUI Scripts\ArmyManagerGUI.cs" />
      <Compile Include="Assets\Scripts\GUI Scripts\CastleManagerGUI.cs" />
+     <Compile Include="Assets\Scripts\GUI Scripts\GUIInfo.cs" />
      <Compile Include="Assets\Scripts\GUI Scripts\PlayerCreationGUI.cs" />
      <Compile Include="Assets\Scripts\GUI Scripts\SoldierManagerGUI.cs" />
      <Compile Include="Assets\Scripts\KingAbilities.cs" />

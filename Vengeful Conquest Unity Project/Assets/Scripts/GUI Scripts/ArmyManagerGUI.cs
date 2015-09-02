@@ -1,21 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+/* Class to handle the Army Manager GUI, that displays army information and allows the user to
+ * drag and change party soldiers */
 public class ArmyManagerGUI : MonoBehaviour {
   
-  public Texture armyManagerScreen;
+  public Texture armyManagerScreen; //the actual GUI
   
-  private DataScript data;
-  private ArmyDataScript armyData;
-  
-  private Rect armyWindow = new Rect(43, 103, 615, 207); //window where the army buttons are located
-  
-  /* Button Rects */
-  private Rect armyManagerButton = new Rect(0, 550, 50, 50); //button to open the army manager
-  private Rect addSlotButton = new Rect(15,15, 100, 50); // button to add a soldier slot 
-  private Rect addSoldierButton = new Rect(585, 15, 100, 50); //button to add a soldier
-  private Rect armyButton; //dynamically changing button rect, based on button dimensions
-  private Rect partyButton = new Rect(145, 337, 80, 59); //info of the first party slot button
+  private DataScript data; //the data script
+  private ArmyDataScript armyData; //the army data script
+
 
   /* Struct to hold each button rect and soldier information */
   private struct soldierButton {
@@ -30,90 +24,62 @@ public class ArmyManagerGUI : MonoBehaviour {
   
   private soldierButton nullButton; //empty button used for null comparisons
   
-  private float firstPartyButtonX;
-
-  private float partyButtonGap;
-  
-  private Vector2 soldierButtonDimensions = new Vector2(5, 10);
-  
-  private bool showArmyManager = false;
+  private bool showArmyManager = false; //boolean to toggle the GUI
   
   /* Variables for button drag */
-  private bool buttonPressed = false;
+  private bool buttonPressed = false; //if the user clicked on a button
   private int partyPressed = -1; //index of pressed party button
-  private bool dragging = false;
-  private Rect emptyRect;
-  private Rect storedRect;
-  private Soldiers storedSoldier;
-  private Vector2 releasedLoc;
-  
-  private Vector2 mouseDelta;
+  private Vector2 mouseDelta; //the mouse location relative to the rest of the dragged button
   
   void Start() {
   
-    armyData = ArmyDataScript.armyData;
+    data = DataScript.data; //sets the data variable
+    armyData = ArmyDataScript.armyData; //sets the armyData variable
   
-    nullButton.buttonRect = new Rect(0,0,0,0);
+    /* Sets a null button */
+    nullButton.buttonRect = new Rect(0,0,0,0); 
     nullButton.soldierIndex = -1;
 
-    data = DataScript.data;
+    //creates an array of party buttons 
     partyButtonsArray = new soldierButton[ArmyDataScript.partyCap];
+    
+    //creates an array of army buttons that will be displayed
     armyButtonsArray = new soldierButton[ArmyDataScript.armyCap];
-    
-    partyButton.x += DataScript.data.guiWindow.x;
-    partyButton.y += data.guiWindow.y;
-    
-    armyWindow.x += data.guiWindow.x;
-    armyWindow.y += data.guiWindow.y;
-    
-    addSlotButton.x += data.guiWindow.x;
-    addSlotButton.y += data.guiWindow.y;
-   
-    addSoldierButton.x += data.guiWindow.x;
-    addSoldierButton.y += data.guiWindow.y;
    
   }
   
   void Update() {
   
-    buildArmyButtonArray();
-    buildPartyButtonArray();
-    
-    armyButton = new Rect( 
-      data.UpdateRect (armyWindow).x,
-      data.UpdateRect (armyWindow).y,
-      (data.UpdateRect (armyWindow).width / soldierButtonDimensions.x),
-      (data.UpdateRect (armyWindow).height / soldierButtonDimensions.y)
-    );
-    
-    partyButtonGap = 91 * data.screenOffset.x;
-    
-    firstPartyButtonX = partyButton.x;
+    buildArmyButtonArray(); //creates the array of army buttons that display
+    buildPartyButtonArray(); //creates the array of party buttons that display
 
   }
   
+  /* Displays on the GUI */
   void OnGUI() {
   
-    GUI.skin.button.wordWrap = true;
+    GUI.skin.button.wordWrap = true; //words wrap to next lines
 
-    if (GUI.Button (data.UpdateRect (armyManagerButton), "Army"))  
-    {
+    //Displays an "Army" button that the user presses to open up the army window
+    if (GUI.Button (GUIInfo.guiInfo.armyManagerButton, GUIInfo.guiInfo.armyManagerButtonText)) {
     
       toggleArmyManager ();
         
     }
     
+    //Displays the save button
+    //TODO: Remove this later
     if (GUI.Button (new Rect(750, 0, 50, 50), "Save")) {
     
       data.SaveData();
     
     }
     
-    if (showArmyManager) {
+    if (showArmyManager) { //displays the entire Army Manager GUI
     
-      GUI.DrawTexture (data.guiWindow, armyManagerScreen);
+      GUI.DrawTexture (GUIInfo.guiInfo.GUIWindow, armyManagerScreen); //shows the Army Manager screen
       
-      if (Event.current.type == EventType.MouseDown) {
+      if (Event.current.type == EventType.MouseDown) { //checks if the user presses down
         
         /* Checks if user pressed a valid soldier button */
         if (!buttonPressed && //ensures that a button is only stored once per press
@@ -122,17 +88,19 @@ public class ArmyManagerGUI : MonoBehaviour {
           
           buttonPressed = true; // a button has been pressed
           
+          /* stores distance from mouse to the top left corner of the pressed button */
           mouseDelta.x = Event.current.mousePosition.x - storedButton.buttonRect.x;
           mouseDelta.y = Event.current.mousePosition.y - storedButton.buttonRect.y;
           
         }
-        
-        else if (!buttonPressed && 
-                 IsNullButton(storedButton = CheckPartyPress ()) == false &&
-                 storedButton.soldierIndex != ArmyDataScript.nullSoldierIndex) {
+       
+        else if (!buttonPressed && //if button wasnt pressed efore
+                 IsNullButton(storedButton = CheckPartyPress ()) == false && //button isnt null and is party pressed
+                 storedButton.soldierIndex != ArmyDataScript.nullSoldierIndex) { //soldier is there
         
           buttonPressed = true; //a button has been pressed
           
+          /* Stores distance from mouse to top left corner of pressed button */
           mouseDelta.x = Event.current.mousePosition.x - storedButton.buttonRect.x;
           mouseDelta.y = Event.current.mousePosition.y - storedButton.buttonRect.y;
         
@@ -155,13 +123,13 @@ public class ArmyManagerGUI : MonoBehaviour {
       
       }
       
-      if (GUI.Button (addSlotButton, "Unlock Slot")) {
+      if (GUI.Button (GUIInfo.guiInfo.addSlotButton, GUIInfo.guiInfo.addSlotButtonText)) {
       
         data.armyData.UnlockArmySlot();
       
       }
       
-      if (GUI.Button (addSoldierButton, "Add Soldier")) {
+      if (GUI.Button (GUIInfo.guiInfo.addSoldierButton, GUIInfo.guiInfo.addSoldierButtonText)) {
       
         data.armyData.AddSoldier();
       
@@ -185,7 +153,6 @@ public class ArmyManagerGUI : MonoBehaviour {
         
           if (GUI.Button(armyButtonsArray[i].buttonRect, "Empty Slot")) {
             
-            data.armyData.AddSoldier ();
           
           }
           
@@ -281,12 +248,16 @@ public class ArmyManagerGUI : MonoBehaviour {
   void buildArmyButtonArray() {
   
     int soldierNum = 0;
+    Rect tempArmyButton = GUIInfo.guiInfo.armyButton;
   
-    for (int y = 0; y < soldierButtonDimensions.y; y++) { 
-      for (int x = 0; x < soldierButtonDimensions.x; x++) {
+    for (int y = 0; y < GUIInfo.armyButtonDimensions.y; y++) { 
+    
+      for (int x = 0; x < GUIInfo.armyButtonDimensions.x; x++) {
       
+        tempArmyButton.x = GUIInfo.guiInfo.armyButton.x + (GUIInfo.guiInfo.armyButton.width * x);
+        tempArmyButton.y = GUIInfo.guiInfo.armyButton.y + (GUIInfo.guiInfo.armyButton.height * y);
         
-        armyButtonsArray[soldierNum].buttonRect = armyButton;
+        armyButtonsArray[soldierNum].buttonRect = tempArmyButton;
         
         if (data.armyData.IsNullSoldier(soldierNum)) {
           
@@ -299,29 +270,26 @@ public class ArmyManagerGUI : MonoBehaviour {
         
         }
         
-        armyButton.x += armyButton.width;
         soldierNum++;
         
       }
-      
-      armyButton.x = armyWindow.x;
-      armyButton.y += armyButton.height;
     }
     
+    tempArmyButton = GUIInfo.guiInfo.armyButton;
     soldierNum = 0;
 
   }
   
   void buildPartyButtonArray() {
   
-    Rect updatedPartyButton = partyButton;
+    Rect updatedPartyButton = GUIInfo.guiInfo.partyButton;
     
     for (int x = 0; x < ArmyDataScript.partyCap; x++) {
     
       partyButtonsArray[x].soldierIndex = armyData.GetPartySoldier(x);
     
       partyButtonsArray[x].buttonRect = updatedPartyButton;
-      updatedPartyButton.x += partyButtonGap;
+      updatedPartyButton.x += GUIInfo.guiInfo.partyButtonGap;
     }
   }
   

@@ -5,40 +5,24 @@ public class SoldierManagerGUI : MonoBehaviour {
 
   public Texture soldierManagerScreen;
   private DataScript data;
+  private GUIInfo guiInfo;
   
   private Soldiers currentSoldier;
   private string oldObjectName;
   
   bool showSoldierManager = false;
   Object sourceScript; //script that this window was called from
-  
-  private Rect nameField = new Rect(137, 110, 231, 38);
-  private Rect cancelButton = new Rect(30, 427, 162, 42);
-  private Rect acceptButton = new Rect(508, 427, 162, 43);
 
 	// Use this for initialization
 	void Start () {
   
-    data = GameObject.Find ("Data").GetComponent<DataScript>();
+    data = DataScript.data;
+    guiInfo = GUIInfo.guiInfo;
     
-    nameField.x += data.guiWindow.x;
-    nameField.y += data.guiWindow.y;
-    
-    cancelButton.x += data.guiWindow.x;
-    cancelButton.y += data.guiWindow.y;
-    
-    acceptButton.x += data.guiWindow.x;
-    acceptButton.y += data.guiWindow.y;
-
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-  
-    nameField = data.UpdateRect(nameField);
-    cancelButton = data.UpdateRect (cancelButton);
-    acceptButton = data.UpdateRect (acceptButton);
 
   }
   
@@ -46,26 +30,24 @@ public class SoldierManagerGUI : MonoBehaviour {
   
     if (showSoldierManager == true) {
     
-      GUI.DrawTexture (data.guiWindow, soldierManagerScreen);
+      GUI.DrawTexture (guiInfo.GUIWindow, guiInfo.soldierManagerScreen);
   
-      currentSoldier.soldierName = (GUI.TextField(nameField, currentSoldier.GetName()));
+      currentSoldier.soldierName = (GUI.TextField(guiInfo.soldierNameField, currentSoldier.GetName()));
       
-      if (GUI.Button(cancelButton, "Cancel")) {
+      if (GUI.Button(guiInfo.soldierCancelButton, guiInfo.soldierCancelButtonText)) {
      
         UndoChanges ();
         toggleGUI ();
       
       }
       
-      if (GUI.Button (acceptButton, "Accept")) {
+      if (GUI.Button (guiInfo.soldierAcceptButton, guiInfo.soldierAcceptButtonText)) {
       
         AcceptChanges ();
         toggleGUI ();
       
       }
-      
     }
-  
   }
   
   private void toggleGUI() {
